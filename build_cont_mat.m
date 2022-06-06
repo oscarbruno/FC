@@ -2,6 +2,19 @@
 % A routine used to pre-compute the matrix products necessary for the
 % building of the Fourier Continuation
 %
+% Inputs: 
+%   A : matrix containing the values of the extended Gram polynomials at 
+%   the continuation points
+%   Q : matrix containing the values of the Gram polynomials (for Dirichlet
+%   boundary conditions)at the d points of the interval. 
+%   Q_tilde : matrix containing the values of the Gram polynomials (for
+%   Neumann boundary conditions)at the d points of the interval. 
+%
+% Outputs:
+%   ArQr : matrix A_r*Q_r^T in eq (25) in [1]
+%   AlQl : matrix A_l*Q_l^T in eq (25) in [1]
+%   ArQ_tilder : matrix A_r*\tilde{Q}_r^T in eq (26) in [1]
+%   AlQ_tildel : matrix A_r*\tilde{Q}_r^T in eq (26) in [1]
 %
 % Author:
 %   Daniel Leibovici
