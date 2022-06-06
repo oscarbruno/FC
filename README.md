@@ -15,6 +15,7 @@ The script wave_eqn can be run to observe the convergence properties of a FC-bas
 AB4 scheme in time and the FC-based differentiation in space, for the case of a 1D second order wave equation
 with the possibility to prescribe either Dirichlet or Neumann boundary conditions at each domain boundary.
 
+Author: Daniel Leibovici
 
 Ref : 
 [1] Amlani, F., & Bruno, O. P. (2016). An FC-based spectral solver for elastodynamic problems in general 
