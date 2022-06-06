@@ -15,9 +15,6 @@ The script wave_eqn can be run to observe the convergence properties of a FC-bas
 AB4 scheme in time and the FC-based differentiation in space, for the case of a 1D second order wave equation
 with the possibility to prescribe either Dirichlet or Neumann boundary conditions at each domain boundary.
 
-The script FC_script can be run to insect the FC extension of a desired function, with data defined on a
-discrete grid.
-
 Author: Daniel Leibovici
 
 Ref : 
