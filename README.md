@@ -24,4 +24,4 @@ Ref :
 [1] Amlani, F., & Bruno, O. P. (2016). An FC-based spectral solver for elastodynamic problems in general 
     three-dimensional domains.  Journal of Computational Physics, 307, 333-354.
     
-Special thanks to Thomas Andersen and Jagabandhu Paul.
+Special thanks to Thomas Anderson and Jagabandhu Paul.
