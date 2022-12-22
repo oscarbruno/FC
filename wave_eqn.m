@@ -2,7 +2,7 @@ clear all
 close all
 
 %
-%   A 1D Second ordr wave equation script.
+%   A 1D Second order wave equation script.
 %
 % Author:
 %
@@ -17,8 +17,8 @@ x_a = 0; x_b = 1; % The beginning and end of the Cartesian grid
 h = (x_b - x_a)/(n-1);
 x = linspace(x_a, x_b, n).';
 
-d =  5; % Number of Gram polynomial interpolation points
-C = 27; % Number of continuation points
+d =  8; % Number of Gram polynomial interpolation points
+C = 25; % Number of continuation points
 
 Z = 12;
 E = C;

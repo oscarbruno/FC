@@ -16,7 +16,7 @@ x_a = 0; x_b = 1; % The beginning and end of the Cartesian grid
 h = (x_b - x_a)/(n-1);
 x = linspace(x_a, x_b, n).';
 
-d =  5; % Number of Gram polynomial interpolation points
+d =  3; % Number of Gram polynomial interpolation points
 C = 25; % Number of continuation points
 E = C;
 Z = 12;

@@ -4,7 +4,7 @@
 %
 % Inputs: 
 %   fx : (real) values of the functions f at nodes x_i
-%   d : number of Gram interpolation points
+%   d : number of Gram interpolation points 
 %   C : number of continuation points
 %   AQ : matrix product (A * Q) used to obtain the continuation from the
 %   last d nodes

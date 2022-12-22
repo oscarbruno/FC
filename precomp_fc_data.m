@@ -94,7 +94,7 @@ for i = 1 : d
     b = [Q_fine(:, i); sym(zeros(n_over*(Z - 1) + 1, 1))];
     Coeffs(:, i) = V*(delta_inv.*(U'*b)); % inverting the SVD
     r = max( abs( double( C*Coeffs(:, i) - b ) ) );
-    fprintf( '\t%d\tresidual = %e\n', d, r );    
+    fprintf( '\t%d\tresidual = %e\n', i, r );    
 end
 
 % Evaluating the trigonometric polynomials at the continuation points
