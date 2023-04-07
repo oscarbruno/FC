@@ -26,7 +26,8 @@
 %   Author : Daniel Leibovici
 %   Email : dleibovi@caltech.edu
 
-function [fx_cont_coeffs, fcont] = fcont_gram_blend(fx, d, C, AQ, FAQF, BC, h)
+function [fx_cont_coeffs, fcont, fc_l, fc_r] = fcont_gram_blend(fx, d, C, ... 
+    A, Ql, Qr, AQ, FAQF, BC, h)
 
 
 
@@ -43,8 +44,14 @@ if (BC(1, 1) == 1)
     fl(1) = - BC(2, 1)*h/h0;
 end
 
-fc_r = AQ*fr;
-fc_l = FAQF*fl;
+% fc_r = AQ*fr;
+% fc_l = FAQF*fl;
+fc_r = A * (Qr.' *fr);
+fc_l = flipud(A * (Ql .' * flipud(fl)));
+
+fc_r = double(fc_r);
+fc_l = double(fc_l);
+
 fcont = [fx; fc_l + fc_r];
 
 fx_cont_coeffs = fft(fcont)/fourPts;

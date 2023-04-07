@@ -31,9 +31,9 @@
 %
 
 function [fx_der, fc_coeffs] = fc_der(fx, der_coeffs, filter, d, C, ... 
-    AQ_r, FAQ_lF, BC, h)
+    A, Ql, Qr, AQ_r, FAQ_lF, BC, h)
 
-fc_coeffs = fcont_gram_blend(fx, d, C, AQ_r, FAQ_lF, BC, h);
+fc_coeffs = fcont_gram_blend(fx, d, C, A, Ql, Qr, AQ_r, FAQ_lF, BC, h);
 n = length(fx);
 fourPts = n + C;
 fx_der = real(ifft(fc_coeffs .* filter .* der_coeffs))*fourPts;

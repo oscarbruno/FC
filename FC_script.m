@@ -32,18 +32,26 @@ else
 end
 
 % Loading continuation matrices
-if(exist(['FC_data/A_d',num2str(d),'_C_', num2str(C), '.mat']) == 0 || ...
-   exist(['FC_data/Q_d',num2str(d),'_C_', num2str(C), '.mat']) == 0 || ...
-   exist(['FC_data/Q_tilde_d',num2str(d),'_C_', num2str(C), '.mat']) == 0)
+if(exist(['FC_data/A_d',num2str(d),'_C', num2str(C), '.mat']) == 0 | ...
+   exist(['FC_data/Q_d',num2str(d),'_C', num2str(C), '.mat']) == 0 | ...
+   exist(['FC_data/Q_tilde_d',num2str(d),'_C', num2str(C), '.mat']) == 0)
     disp('FC data not found. Generating FC operators... \n');
     generate_bdry_continuations(d, C, E, Z, n_over, num_digits);
 end
-load(['FC_data/A_d',num2str(d),'_C_', num2str(C), '.mat']);
-load(['FC_data/Q_d',num2str(d),'_C_', num2str(C), '.mat']);
-load(['FC_data/Q_tilde_d',num2str(d),'_C_', num2str(C), '.mat']);
+load(['FC_data/A_d',num2str(d),'_C', num2str(C), '.mat']);
+load(['FC_data/Q_d',num2str(d),'_C', num2str(C), '.mat']);
+load(['FC_data/Q_tilde_d',num2str(d),'_C', num2str(C), '.mat']);
 
-% Building matrices used to produce the continuation
+% Pre-building matrices used to produce the continuation (for increased
+% performance)
 [ArQr, AlQl, ArQ_tilder, AlQ_tildel] = build_cont_mat(A, Q, Q_tilde);
+A = double(A);
+Q = double(Q);
+Q_tilde = double(Q_tilde);
+ArQr = double(ArQr);
+AlQl = double(AlQl);
+ArQ_tilder = double(ArQ_tilder);
+AlQ_tildel = double(AlQ_tildel);
 
 
 % Here, enter the desired function; for example y(x) = exp(cos(x))
@@ -53,7 +61,7 @@ y =  x.^2;
 % Produce the FC extension, assuming Dirichlet boundary conditions:
 BC = [0, 0; 0, 0]; % Dirichlet boundary condition, i.e. we don't impose
                    % anything on the derivative.
-[~, ycont] = fcont_gram_blend(y, d, C, ArQr, AlQl, BC);
+[~, ycont] = fcont_gram_blend(y, d, C, A, Q, Q, ArQr, AlQl, BC);
 xcont = [x; x_b + h*(1 : C).'];
 
 figure
