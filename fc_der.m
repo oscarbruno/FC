@@ -10,10 +10,12 @@
 %   filter : real vector containing the spectral filtering coefficients
 %   d : number of Gram interpolation points
 %   C : number of continuation points
-%   AQ_r: matrix product (A * Q) used to obtain the continuation from the
-%   last d nodes
-%   FAQ_lF: matrix product (A * Q) used to obtain the continuation from the
-%   first d nodes
+%   A : matrix containing the values of the extended Gram polynomials at 
+%   the continuation points
+%   Ql : matrix containing the values of the Gram polynomials at the first 
+%        d points of the interval. 
+%   Qr : matrix containing the values of the Gram polynomials at the first 
+%        d points of the interval.
 %   BC: 2x2 matrix specifying the type of boundary condition at each
 %   interval end (Dirichlet or Neumann), and the associated boundary value
 %   for a Neumann boundary condition
@@ -31,9 +33,9 @@
 %
 
 function [fx_der, fc_coeffs] = fc_der(fx, der_coeffs, filter, d, C, ... 
-    A, Ql, Qr, AQ_r, FAQ_lF, BC, h)
+    A, Ql, Qr, BC, h)
 
-fc_coeffs = fcont_gram_blend(fx, d, C, A, Ql, Qr, AQ_r, FAQ_lF, BC, h);
+fc_coeffs = fcont_gram_blend(fx, d, C, A, Ql, Qr, BC, h);
 n = length(fx);
 fourPts = n + C;
 fx_der = real(ifft(fc_coeffs .* filter .* der_coeffs))*fourPts;

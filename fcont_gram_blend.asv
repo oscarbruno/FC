@@ -8,10 +8,7 @@
 %   C : number of continuation points
 %   A : matrix containing the values of the extended Gram polynomials at 
 %   the continuation points
-%   Ql : matrix containing the values of the Gram polynomials at the first 
-%        d points of the interval. 
-%   Qr : matrix containing the values of the Gram polynomials at the first 
-%        d points of the interval.
+%   Ql : matrix containing the values of the Gram polynomials at the first d points of the interval. 
 %   BC : 2 by 2 matrix
 %       BC(1, :) says if the left and right boundary are Dirichlet 
 %       or Neumann : 0 for Dirichlet, 1 for Neumann

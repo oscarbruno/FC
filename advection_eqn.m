@@ -11,16 +11,18 @@ close all
 %
 
 %% Set up the domain and FC data structures
-n = 100; % number of points in the initial domain
+n = 200; % number of points in the initial domain
 x_a = 0; x_b = 1; % The beginning and end of the Cartesian grid
 h = (x_b - x_a)/(n-1);
 x = linspace(x_a, x_b, n).';
 
 d =  5; % Number of Gram polynomial interpolation points
 C = 25; % Number of continuation points
-E = C;
 Z = 12;
-
+E = C;
+n_over = 20;
+modes_to_reduce = 4;
+num_digits = 256;
 
 fourPts = n + C; % Number of points in the extended grid
 prd = fourPts*h; % Extended period
@@ -35,21 +37,17 @@ if(exist(['FC_data/A_d',num2str(d),'_C', num2str(C), '.mat']) == 0 || ...
    exist(['FC_data/Q_d',num2str(d),'_C', num2str(C), '.mat']) == 0 || ...
    exist(['FC_data/Q_tilde_d',num2str(d),'_C', num2str(C), '.mat']) == 0)
     disp('FC data not found. Generating FC operators... \n');
-    generate_bdry_continuations(d, C, E, Z, n_over, num_digits);
+    generate_bdry_continuations(d, C, E, Z, n_over, modes_to_reduce, ...
+        num_digits);
 end
 load(['FC_data/A_d',num2str(d),'_C', num2str(C), '.mat']);
 load(['FC_data/Q_d',num2str(d),'_C', num2str(C), '.mat']);
 load(['FC_data/Q_tilde_d',num2str(d),'_C', num2str(C), '.mat']);
 
-% Building matrices used to produce the continuation
-[ArQr, AlQl, ArQ_tilder, AlQ_tildel] = build_cont_mat(A, Q, Q_tilde);
 A = double(A);
 Q = double(Q);
 Q_tilde = double(Q_tilde);
-ArQr = double(ArQr);
-AlQl = double(AlQl);
-ArQ_tilder = double(ArQ_tilder);
-AlQ_tildel = double(AlQ_tildel);
+
 
 % Derivative spectral coefficients
 der_coeffs = 1i* 2*pi / prd * k;
@@ -76,13 +74,13 @@ for it=2:maxit
     BC = [0, 0; 0, 0];
     t = (it - 1) * deltat;
     k1 = -deltat * fc_der(u, der_coeffs, filter_coeffs, d, C, A, Q, Q, ...
-        ArQr, AlQl, BC, h);
+        BC, h);
     k2 = -deltat * fc_der(u + 1/2 * k1, der_coeffs, filter_coeffs, d, ... 
-        C, A, Q, Q, ArQr, AlQl, BC, h);
+        C, A, Q, Q, BC, h);
     k3 = -deltat * fc_der(u + 1/2 * k2, der_coeffs, filter_coeffs, d, ...
-        C, A, Q, Q, ArQr, AlQl, BC, h);
+        C, A, Q, Q, BC, h);
     k4 = -deltat * fc_der(u + k3, der_coeffs, filter_coeffs, d, C, A, ... 
-        Q, Q, ArQr, AlQl, BC, h);
+        Q, Q, BC, h);
     u = u + 1/6*k1 + 1/3*k2 + 1/3*k3 + 1/6*k4;
     u(1) = uexact(0, t);
 

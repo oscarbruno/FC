@@ -24,13 +24,14 @@
 %
 
 function [Q, Q_tilde, A, ArQr, AlQl, ArQ_tilder, AlQ_tildel] =  ...
-    precomp_fc_data(d, C, Z, E, n_over, num_digits)
+    precomp_fc_data(d, C, Z, E, n_over, modes_to_reduce, num_digits)
 
 
 tol = 1e-16;
 digits(num_digits);
 N_coarse = sym(d + C + Z + E);
-svd_order = sym(N_coarse);
+% modes_to_reduce = 4;
+svd_order = sym(N_coarse - 2 * modes_to_reduce);
 
 
 
@@ -104,8 +105,21 @@ C = sym([cos(2*sym('pi')*X*k_cos / ((N_coarse - 1) * h0)), ...
 [U, S, V] = svd(C, 'econ');
 Coeffs = sym(zeros(size(C, 2), d));
 delta = diag(S);
-% delta(delta > 1e16) = 0;
 delta_inv = 1./delta;
+
+
+% [U, S, V] = svd(C, 'econ');
+% Coeffs = sym(zeros(size(C, 2), d));
+% delta = diag(S);
+% z = double( delta(1:end-1)./delta(2:end) );
+% ind = min( [find( z > 1e16 ).', svd_order] );
+% delta_inv = 1./delta(1:ind);
+% V = V(:,1:ind);
+% U = U(:,1:ind);
+
+
+
+
 
 
 for i = 1 : d
